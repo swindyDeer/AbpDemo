@@ -22,6 +22,7 @@ namespace BasicAspNetCoreApplication
 
             if (env.IsDevelopment())
             {
+                app.UseWelcomePage();
                 app.UseDeveloperExceptionPage();
             }
             else
