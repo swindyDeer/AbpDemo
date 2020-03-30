@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace System.Collections.Generic
 {
@@ -26,7 +24,7 @@ namespace System.Collections.Generic
         /// <typeparam name="T">集合中元素的类型</typeparam>
         /// <param name="source">集合</param>
         /// <param name="item">要检查并添加的元素</param>
-        /// <returns></returns>
+        /// <returns>返回true成功添加，返回false添加失败</returns>
         public static bool AddIfNotContains<T>(this ICollection<T> source,T item)
         {
             //check null
@@ -42,12 +40,12 @@ namespace System.Collections.Generic
         }
 
         /// <summary>
-        /// 如果元素不在集合中，则将其添加到集合中,并返回添加的子集合
+        /// 如果元素不在集合中，则将其添加到集合中
         /// </summary>
         /// <typeparam name="T">集合中元素的类型</typeparam>
         /// <param name="source">集合</param>
         /// <param name="items">要检查并添加的元素</param>
-        /// <returns></returns>
+        /// <returns>返回添加的子集合</returns>
         public static IEnumerable<T> AddIfNotContains<T>(this ICollection<T> source,IEnumerable<T> items)
         {
             //check null
@@ -70,8 +68,8 @@ namespace System.Collections.Generic
         /// <typeparam name="T"></typeparam>
         /// <param name="source">集合</param>
         /// <param name="predicate">确定元素是否已在集合中的条件</param>
-        /// <param name="itemFactory">返回元素的工厂</param>
-        /// <returns></returns>
+        /// <param name="itemFactory">元素的工厂</param>
+        /// <returns>返回true成功添加，返回false添加失败</returns>
         public static bool AddIfNotContains<T> (this ICollection<T> source,Func<T,bool> predicate,Func<T> itemFactory)
         {
             //check null
@@ -82,6 +80,26 @@ namespace System.Collections.Generic
             }
             source.Add(itemFactory());
             return true;
+        }
+
+        /// <summary>
+        /// 从集合中移除满足给定条件的所有项
+        /// </summary>
+        /// <param name="source">集合</param>
+        /// <param name="predicate">移除元素的条件</param>
+        /// <returns>返回移除的所有项</returns>
+        public static IList<T> RemoveAll<T>(this ICollection<T> source, Func<T,bool> predicate)
+        {
+            //check null
+            var items = source.Where(predicate).ToList();
+            foreach(var item in items)
+            {
+                if(source.Contains(item))
+                {
+                    source.Remove(item);
+                }
+            }
+            return items;
         }
     }
 }
