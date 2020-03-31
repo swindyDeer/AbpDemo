@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Test
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            CollectionTest();
+        }
+
+        static void CollectionTest()
         {
             #region IsNullOrEmpty
             var boxs = new boxs();
@@ -45,7 +52,14 @@ namespace Test
                 Console.WriteLine(item);
             }
             #endregion
+        }
 
+        static void DictionaryTest(List<string> ls)
+        {
+            //var dic = new dic();
+            //dic.Add("a", 1);
+            //int a;
+            //Console.WriteLine(dic.TryGetValue("a",out a));
         }
     }
 
@@ -53,5 +67,8 @@ namespace Test
     {
     }
 
+    public class dic:Dictionary<string,int>
+    {
 
+    }
 }
